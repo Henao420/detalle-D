@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f8c6c6, #f4a7b9);
+
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.content {
+    position: relative;
+    text-align: center;
+}
+
+.circle {
+    width: 170px;
+    height: 170px;
+    background: #ff4f91;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.circle:active {
+    transform: scale(0.95);
+}
+
+.heart {
+    width: 60px;
+    height: 60px;
+    background: red;
+    position: relative;
+    transform: rotate(-45deg);
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    width: 60px;
+    height: 60px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.heart::before {
+    top: -30px;
+    left: 0;
+}
+
+.heart::after {
+    left: 30px;
+    top: 0;
+}
+
+.message {
+    max-width: 350px;
+    padding: 14px 22px;
+    line-height: 1.4;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 25px;
+
+    position: absolute;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 105, 180, 0.85);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+@media (min-width: 800px) {
+    .message {
+        max-width: 500px;
+        font-size: 15px;
+        padding: 16px 28px;
+    }
+}
