@@ -9,19 +9,40 @@ let index = 0;
 let timeoutId = null;
 
 circle.addEventListener("click", () => {
-    
+
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
 
+    // Si está visible, lo ocultamos primero
+    if (messageBox.style.opacity === "1") {
+
+        messageBox.style.opacity = "0";
+        messageBox.style.transform = "translate(-50%, -15px)";
+
+        setTimeout(() => {
+            showMessage();
+        }, 400);
+
+    } else {
+        showMessage();
+    }
+});
+
+
+function showMessage() {
+
     messageBox.innerHTML = messages[index];
-    messageBox.style.opacity = "1";
-    messageBox.style.transform = "translate(-50%, 0)";
+
+    setTimeout(() => {
+        messageBox.style.opacity = "1";
+        messageBox.style.transform = "translate(-50%, 0)";
+    }, 50);
 
     index = (index + 1) % messages.length;
 
     timeoutId = setTimeout(() => {
         messageBox.style.opacity = "0";
         messageBox.style.transform = "translate(-50%, -15px)";
-    }, 3500)
-});
+    }, 3500);
+}
