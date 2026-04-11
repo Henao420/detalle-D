@@ -1,1 +1,1 @@
-# regalo-diana
+# detalle
