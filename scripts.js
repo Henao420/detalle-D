@@ -8,36 +8,38 @@ const messages = [
 let index = 0;
 let timeoutId = null;
 
-circle.addEventListener("click", () => {
+function createParticles() {
+    const emojis = ["🙈", "🐵", "❤️", "💖", "✨", "💓"];
+    const count = 15;
 
-    if (timeoutId) {
-        clearTimeout(timeoutId);
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 180 + Math.random() * 250;
+        const tx = Math.cos(angle) * dist + "px";
+        const ty = Math.sin(angle) * dist + "px";
+        const tr = Math.random() * 360 + "deg";
+
+        p.style.setProperty("--tx", tx);
+        p.style.setProperty("--ty", ty);
+        p.style.setProperty("--tr", tr);
+
+        p.style.animation = `particle-animation ${1.5 + Math.random() * 0.7}s ease-out forwards`;
+        p.style.animationDelay = `${Math.random() * 0.2}s`
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 2500);
     }
-
-    // Si está visible, lo ocultamos primero
-    if (messageBox.style.opacity === "1") {
-
-        messageBox.style.opacity = "0";
-        messageBox.style.transform = "translate(-50%, -15px)";
-
-        setTimeout(() => {
-            showMessage();
-        }, 400);
-
-    } else {
-        showMessage();
-    }
-});
-
+}
 
 function showMessage() {
-
     messageBox.innerHTML = messages[index];
-
-    setTimeout(() => {
-        messageBox.style.opacity = "1";
-        messageBox.style.transform = "translate(-50%, 0)";
-    }, 50);
+    
+    messageBox.style.opacity = "1";
+    messageBox.style.transform = "translate(-50%, 0)";
 
     index = (index + 1) % messages.length;
 
@@ -46,3 +48,20 @@ function showMessage() {
         messageBox.style.transform = "translate(-50%, -15px)";
     }, 3500);
 }
+
+circle.addEventListener("click", () => {
+
+    createParticles();
+
+
+    if (timeoutId) clearTimeout(timeoutId);
+
+    if (messageBox.style.opacity === "1") {
+        messageBox.style.opacity = "0";
+        messageBox.style.transform = "translate(-50%, -15px)";
+
+        setTimeout(() => { showMessage(); }, 400);
+    } else {
+        showMessage();
+    }
+});
